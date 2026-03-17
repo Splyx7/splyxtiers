@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splyxtiers</title>
+
+<style>
+:root{
+ --bg:#0b1220;
+ --panel:#020617;
+ --soft:#111827;
+ --gold:#facc15;
+ --text:#e5e7eb;
+}
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Inter,Arial,sans-serif;
+ color:var(--text);
+ background: linear-gradient(180deg, 
+   #87CEEB 0%,    /* Helles Himmelblau */
+   #87CEEB 20%,   /* Helles Himmelblau */
+   #FFD700 40%,   /* Goldgelb */
+   #FFA500 55%,   /* Orange */
+   #FF4500 75%,   /* Orange-Rot */
+   #DC143C 90%    /* Tiefes Rot */
+ );
+ background-size: 100% 200%;
+ animation: sonnenuntergang 15s ease infinite;
+ position: relative;
+ overflow-x:hidden;
+}
+
+body::before {
+ content: "";
+ position: fixed;
+ inset: 0;
+ background: 
+   url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Clouds_over_the_Atlantic_Ocean.jpg/800px-Clouds_over_the_Atlantic_Ocean.jpg'),
+   url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Clouds_over_the_sea.jpg/800px-Clouds_over_the_sea.jpg');
+ background-blend-mode: overlay;
+ background-size: cover, cover;
+ background-position: 0% 0%, 100% 0%;
+ opacity: 0.5;
+ animation: wolkenSchweben 90s linear infinite;
+ pointer-events: none;
+ z-index: 2;
+}
+
+body::after {
+ content: "";
+ position: fixed;
+ top: 15%;
+ right: 10%;
+ width: 250px;
+ height: 250px;
+ background: radial-gradient(circle, 
+   rgba(255, 215, 0, 0.95) 0%, 
+   rgba(255, 140, 0, 0.7) 50%, 
+   rgba(255, 69, 0, 0.3) 80%, 
+   transparent 100%
+ );
+ border-radius: 50%;
+ filter: blur(35px);
+ animation: sonneLeuchten 10s ease-in-out infinite;
+ pointer-events: none;
+ z-index: 1;
+}
+
+@keyframes sonnenuntergang {
+ 0% { background-position: 0% 0%; }
+ 25% { background-position: 0% 25%; }
+ 50% { background-position: 0% 50%; }
+ 75% { background-position: 0% 75%; }
+ 100% { background-position: 0% 0%; }
+}
+
+@keyframes wolkenSchweben {
+ 0% { background-position: 0% 0%, 100% 0%; }
+ 50% { background-position: 30% 10%, 130% 10%; }
+ 100% { background-position: 0% 0%, 100% 0%; }
+}
+
+@keyframes sonneLeuchten {
+ 0%, 100% { transform: scale(1); opacity: 0.8; filter: blur(35px); }
+ 50% { transform: scale(1.3); opacity: 1; filter: blur(25px); }
+}
+
+/* Header und Content über dem Himmel */
+header, .tabs, .container {
+ position: relative;
+ z-index: 20;
+}
+
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:14px 22px;
+ background:rgba(2,6,23,0.7);
+ backdrop-filter:blur(10px);
+ border-bottom: 2px solid rgba(255,215,0,0.3);
+}
+.logo{
+ font-size:22px;
+ font-weight:900;
+ background:linear-gradient(90deg,#22c55e,#facc15);
+ -webkit-background-clip:text;
+ color:transparent
+}
+.gear{
+ font-size:22px;
+ cursor:pointer;
+ transition:.3s;
+ color: white;
+}
+.gear:hover{transform:rotate(90deg) scale(1.2); color: #ffd700;}
+
+.tabs{
+ display:flex;
+ gap:10px;
+ justify-content:center;
+ padding:16px;
+ flex-wrap:wrap;
+}
+.tabs button{
+ padding:10px 16px;
+ border-radius:999px;
+ border:none;
+ background:rgba(17,24,39,0.8);
+ backdrop-filter:blur(5px);
+ color:#fff;
+ font-weight:800;
+ cursor:pointer;
+ border: 1px solid rgba(255,255,255,0.2);
+}
+.tabs button.active,
+.tabs button:hover{
+ background: #ffd700;
+ color:#000;
+ border-color: #ffd700;
+ box-shadow: 0 0 25px #ffd700;
+}
+
+.container{
+ max-width:1200px;
+ margin:auto;
+ padding:0 16px 160px;
+}
+
+.row{
+ display:flex;
+ align-items:center;
+ gap:14px;
+ padding:14px 18px;
+ border-radius:18px;
+ background:rgba(2,6,23,0.75);
+ backdrop-filter:blur(12px);
+ margin-bottom:10px;
+ cursor:pointer;
+ transition:all .25s ease;
+ border: 2px solid transparent;
+}
+.row:hover{
+ transform:translateY(-4px) scale(1.015);
+}
+
+.row.top1 {
+ background: rgba(0, 0, 0, 0.6) !important;
+ border: 4px solid #FFD700 !important;
+ box-shadow: 0 0 60px #FFD700, 0 0 30px rgba(255, 215, 0, 0.6) inset;
+}
+
+.row.top2 {
+ background: rgba(0, 0, 0, 0.6) !important;
+ border: 4px solid #E8E8E8 !important;
+ box-shadow: 0 0 60px #FFFFFF, 0 0 30px rgba(255, 255, 255, 0.6) inset;
+}
+
+.row.top3 {
+ background: rgba(0, 0, 0, 0.6) !important;
+ border: 4px solid #CD7F32 !important;
+ box-shadow: 0 0 60px #CD7F32, 0 0 30px rgba(205, 127, 50, 0.6) inset;
+}
+
+.row:not(.top1):not(.top2):not(.top3) {
+ background: rgba(2, 6, 23, 0.85);
+ backdrop-filter: blur(12px);
+ border: 1px solid rgba(255,255,255,0.2);
+}
+
+.rank{
+ width:34px;
+ font-weight:900;
+ color: white;
+ text-shadow: 0 0 10px rgba(255,255,255,0.8);
+ font-size: 18px;
+}
+
+.head{
+ width:42px;
+ height:42px;
+ border-radius:10px;
+ border: 2px solid rgba(255,255,255,0.3);
+}
+
+.name{
+ flex:1;
+ font-weight:800;
+ color: white;
+ text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+ font-size: 16px;
+}
+
+.points{
+ font-size:12px;
+ opacity:0.9;
+ color: #FFD700;
+ font-weight: bold;
+}
+
+.tiers{display:flex;gap:8px;flex-wrap:wrap}
+
+.tier{
+ width:46px;
+ height:46px;
+ border-radius:50%;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ font-size:10px;
+ font-weight:900;
+ transition:.25s;
+ border: 2px solid rgba(255,255,255,0.3);
+ background: rgba(0,0,0,0.2);
+ backdrop-filter: blur(2px);
+}
+.tier:hover{
+ transform:scale(1.25) rotate(3deg);
+ border-color: white;
+}
+
+.HT1{background:#FFD700; color:#000; font-weight:900;}
+.LT1{background:#F0B400; color:#000; font-weight:900;}
+.HT2{background:#E0E0E0; color:#000; font-weight:900;}
+.LT2{background:#B0B0B0; color:#000; font-weight:900;}
+.HT3{background:#D7945A; color:#000; font-weight:900;}
+.LT3{background:#B06E3C; color:#fff; font-weight:900;}
+.HT4{background:#F5F5F5; color:#000; font-weight:900;}
+.LT4{background:#4A4A4A; color:#fff; font-weight:900;}
+.HT5{background:#FF6B6B; color:#000; font-weight:900;}
+.LT5{background:#B22222; color:#fff; font-weight:900;}
+
+.HT1:hover{box-shadow:0 0 30px #FFD700}
+.LT1:hover{box-shadow:0 0 30px #F0B400}
+.HT2:hover{box-shadow:0 0 30px #E0E0E0}
+.LT2:hover{box-shadow:0 0 30px #B0B0B0}
+.HT3:hover{box-shadow:0 0 30px #D7945A}
+.LT3:hover{box-shadow:0 0 30px #B06E3C}
+.HT4:hover{box-shadow:0 0 30px #F5F5F5}
+.LT4:hover{box-shadow:0 0 30px #4A4A4A}
+.HT5:hover,.LT5:hover{box-shadow:0 0 30px #FF6B6B}
+
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">Splyxtiers</div>
+ <div class="gear" onclick="openLogin()">⚙️</div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div class="container" id="list"></div>
+
+<script>
+const icons={
+ Sword:"https://tiermaker.com/images/media/template_images/2024/17234639/all-mc-tiers-kits-ranked-17234639/sword.png",
+ Axe:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYbL_eFmtWCdXVRCYmczWyM5qMAyVqoHOaSCEEbCABmg&s",
+ Mace:"https://tiermaker.com/images/media/template_images/2024/18176275/minecraft-mctiers-kits-ranking-121-18176275/mace.png",
+ UHC:"https://tiermaker.com/images/media/template_images/2024/18176275/minecraft-mctiers-kits-ranking-121-18176275/uhc.png",
+ "Netherite OP":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdonUJVFpc9qZrd54gZcYI2hCJaNGbbUDKV9F9o1ang&s",
+ Pot:"https://tiermaker.com/images/media/template_images/2024/18176275/minecraft-mctiers-kits-ranking-121-18176275/pot.png",
+ SMP:"https://tiermaker.com/images/media/template_images/2024/17234639/all-mc-tiers-kits-ranked-17234639/smp.png",
+ Vanilla:"https://tiermaker.com/images/media/template_images/2024/16172991/mctiers--subtiers-gamemodes-16172991/vanilla.png",
+ Cart:"https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/74/Minecart_with_TNT_JE2_BE2.png/revision/latest?cb=20191220092620"
+}
+
+const modes=["Overall","Sword","Axe","Mace","UHC","Netherite OP","Pot","SMP","Vanilla","Cart"]
+
+const tierPoints={
+ LT5:1,HT5:2,
+ LT4:3,HT4:4,
+ LT3:6,HT3:10,
+ LT2:15,HT2:20,
+ LT1:30,HT1:40
+}
+
+let players=[
+ {name:"Splyx7_",tiers:{Sword:"HT3",Axe:"HT3",UHC:"HT3"}},
+ {name:"SazeTT",tiers:{Sword:"HT3",Axe:"HT3",Mace:"HT3",UHC:"LT3",SMP:"LT3",Vanilla:"HT3",Cart:"HT3"}},
+ {name:"KrabeTT",tiers:{Sword:"HT4",Axe:"HT3",Mace:"HT4",UHC:"HT4",SMP:"HT4",Vanilla:"LT4",Cart:"HT3"}},
+ {name:"A123Kokowei",tiers:{Sword:"HT4",Axe:"HT3",Mace:"LT3",UHC:"HT4",SMP:"HT4",Vanilla:"HT4",Cart:"HT4"}},
+ {name:"KartoffelFilip",tiers:{Sword:"LT3",Axe:"HT3",Mace:"HT3",UHC:"HT3",SMP:"HT3",Vanilla:"HT3",Cart:"LT3"}},
+ {name:"KittyKeks2012",tiers:{Sword:"LT4",Axe:"HT5",Mace:"LT5",UHC:"LT4",SMP:"LT4",Vanilla:"LT5"}},
+ {name:"TargedApex",tiers:{Sword:"LT3",Axe:"HT5",Mace:"HT5",UHC:"LT4",SMP:"LT4",Vanilla:"HT4"}},
+ {name:"GurkusTheBird",tiers:{}},
+ {name:"easypeasy1913",tiers:{Sword:"HT4",Axe:"LT4",Mace:"LT5",UHC:"LT4",SMP:"HT5",Vanilla:"LT5"}},
+ {name:"ToxicGooni_Pau9",tiers:{}},
+ {name:"Zen1235232",tiers:{}},
+ {name:"LoesungBrot8084",tiers:{}},
+ {name:"ShadowXNightmare",tiers:{Cart:"LT4",Mace:"LT4",Axe:"LT3"}},
+ {name:"koshiki",tiers:{}},
+ {name:"ChaosGame8709",tiers:{}},
+ {name:"RealJMMH",tiers:{}},
+ {name:"CyberBlaze22",tiers:{}},
+ {name:"xXF0cusXx",tiers:{}},
+ {name:"VariedIron",tiers:{}},
+ {name:"Zero_12F",tiers:{}}
+]
+
+let current="Overall"
+
+const tabs=document.getElementById("tabs")
+const list=document.getElementById("list")
+
+modes.forEach(m=>{
+ const b=document.createElement("button")
+ b.innerHTML=(m==="Overall"?"🏆":`<img src="${icons[m]}" style="width:16px;height:16px;vertical-align:middle;">`) + " " + m
+ b.onclick=()=>{current=m;render();document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+ if(m==="Overall")b.classList.add("active")
+ tabs.appendChild(b)
+})
+
+function skin(n){return "https://mc-heads.net/avatar/"+n+"/64"}
+function points(p){return Object.values(p.tiers).reduce((s,t)=>s+(tierPoints[t]||0),0)}
+
+function render(){
+ list.innerHTML=""
+ list.className="container "+(current==="Overall"?"overall":"")
+ players.sort((a,b)=>{
+  let pa=current==="Overall"?points(a):(tierPoints[a.tiers[current]]||0)
+  let pb=current==="Overall"?points(b):(tierPoints[b.tiers[current]]||0)
+  return pb-pa
+ }).forEach((p,i)=>{
+  let tierHTML=""
+  if(current==="Overall"){
+   for(let m in p.tiers){
+    tierHTML+=`<div class="tier ${p.tiers[m]}">
+     <img src="${icons[m]}" style="width:18px;height:18px;">
+     <div>${p.tiers[m]}</div>
+    </div>`
+   }
+  }else if(p.tiers[current]){
+   tierHTML=`<div class="tier ${p.tiers[current]}">
+    <img src="${icons[current]}" style="width:18px;height:18px;">
+    <div>${p.tiers[current]}</div>
+   </div>`
+  }
+
+  const row=document.createElement("div")
+  row.className="row "+(i===0?"top1":i===1?"top2":i===2?"top3":"")
+  row.innerHTML=`
+   <div class="rank">${i+1}</div>
+   <img class="head" src="${skin(p.name)}">
+   <div class="name">${p.name}<div class="points">${points(p)} pts</div></div>
+   <div class="tiers">${tierHTML}</div>
+  `
+  list.appendChild(row)
+ })
+}
+
+render()
+</script>
+
+</body>
+</html>
