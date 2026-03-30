@@ -526,14 +526,14 @@ const icons = {
  Axe:"https://mctiers.com/tier_icons/axe.svg",
  Mace:"https://mctiers.com/tier_icons/mace.svg",
  UHC:"https://mctiers.com/tier_icons/uhc.svg",
- "Netherite OP":"https://mctiers.com/tier_icons/nethop.svg",
+ "NetheriteOP":"https://mctiers.com/tier_icons/nethop.svg",
  Pot:"https://mctiers.com/tier_icons/pot.svg",
  SMP:"https://mctiers.com/tier_icons/smp.svg",
  Vanilla:"https://mctiers.com/tier_icons/vanilla.svg",
  Cart:"https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/74/Minecart_with_TNT_JE2_BE2.png/revision/latest?cb=20191220092620"
 }
 
-const modes = ["Overall", "Sword", "Axe", "Mace", "UHC", "Netherite OP", "Pot", "SMP", "Vanilla", "Cart"]
+const modes = ["Overall", "Sword", "Axe", "Mace", "UHC", "NetheriteOP", "Pot", "SMP", "Vanilla", "Cart"]
 
 const tierPoints = {
  LT5: 1, HT5: 2,
@@ -577,7 +577,7 @@ function openPlayerDetail(player) {
  modal.className = "modal"
  
  let tiersHTML = ""
- const allModes = ["Sword", "Axe", "Mace", "UHC", "Netherite OP", "Pot", "SMP", "Vanilla", "Cart"]
+ const allModes = ["Sword", "Axe", "Mace", "UHC", "NetheriteOP", "Pot", "SMP", "Vanilla", "Cart"]
  
  allModes.forEach(mode => {
    const rank = player.tiers[mode] || "❌"
